@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ML Visualizer - Dataset Exploratory Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6467f2",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101122",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #282839;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-8 py-3 bg-white dark:bg-background-dark/50 backdrop-blur-md z-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">ML Visualizer</h2>
+</div>
+<nav class="flex items-center gap-6">
+<a class="text-primary text-sm font-semibold border-b-2 border-primary pb-1" href="#">Datasets</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Models</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Experiments</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Docs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Search datasets..."/>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">person</span>
+<span>Profile</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Left Sidebar: Column Explorer -->
+<aside class="w-72 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-white dark:bg-background-dark/30">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-400">Columns (12)</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary">filter_list</span>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 text-base">search</span>
+<input class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-md pl-8 pr-2 py-1.5 text-xs outline-none" placeholder="Filter columns..."/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-1">
+<!-- Column Items -->
+<div class="group flex items-center justify-between p-3 rounded-lg bg-primary/10 border border-primary/20 cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">tag</span>
+<span class="text-sm font-medium">house_price</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">numbers</span>
+<span class="text-sm font-medium">square_feet</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">category</span>
+<span class="text-sm font-medium">neighborhood</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">numbers</span>
+<span class="text-sm font-medium">year_built</span>
+</div>
+<span class="bg-red-500/20 text-red-500 text-[10px] px-1.5 py-0.5 rounded font-bold">2.4% NULL</span>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">numbers</span>
+<span class="text-sm font-medium">bedrooms</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">numbers</span>
+<span class="text-sm font-medium">bathrooms</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">toggle_on</span>
+<span class="text-sm font-medium">has_garage</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">numbers</span>
+<span class="text-sm font-medium">lot_size</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Center: Main Analysis -->
+<section class="flex-1 flex flex-col bg-slate-50 dark:bg-background-dark/10 overflow-hidden">
+<!-- Overview Bar -->
+<div class="px-8 py-6 bg-white dark:bg-background-dark/50 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<div>
+<h1 class="text-2xl font-bold flex items-center gap-2">
+                        Housing_Dataset_v1.csv
+                        <span class="text-xs bg-slate-200 dark:bg-slate-800 text-slate-500 px-2 py-0.5 rounded font-normal uppercase tracking-widest">CSV</span>
+</h1>
+<div class="flex items-center gap-4 mt-1">
+<p class="text-slate-500 dark:text-slate-400 text-sm">Problem Type: <span class="font-semibold text-primary">Regression</span></p>
+<span class="h-1 w-1 rounded-full bg-slate-400"></span>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Rows: <span class="text-slate-900 dark:text-slate-200 font-medium">12,450</span></p>
+</div>
+</div>
+<button class="bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">download</span>
+                    Export Analysis
+                </button>
+</div>
+<!-- Visualization Area -->
+<div class="flex-1 p-8 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
+<!-- Tab Controls -->
+<div class="flex items-center gap-1 bg-slate-200 dark:bg-slate-800 p-1 rounded-xl w-fit self-center">
+<button class="bg-white dark:bg-slate-700 shadow-sm text-primary text-sm font-bold px-6 py-2 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">grid_on</span> Heatmap
+                    </button>
+<button class="text-slate-500 dark:text-slate-400 text-sm font-medium px-6 py-2 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-700/50 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">scatter_plot</span> Scatter
+                    </button>
+<button class="text-slate-500 dark:text-slate-400 text-sm font-medium px-6 py-2 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-700/50 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">bar_chart</span> Distribution
+                    </button>
+</div>
+<!-- Heatmap Canvas -->
+<div class="relative bg-white dark:bg-slate-900/40 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 flex-1 flex flex-col items-center justify-center min-h-[500px]">
+<div class="absolute top-6 left-6">
+<h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest">Correlation Matrix</h4>
+</div>
+<!-- Abstract Heatmap Mockup -->
+<div class="grid grid-cols-6 grid-rows-6 gap-2 w-full max-w-2xl aspect-square">
+<!-- Simulated Heatmap Cells -->
+<div class="bg-red-500 rounded-md flex items-center justify-center text-[10px] font-bold text-white">1.0</div>
+<div class="bg-red-400 rounded-md flex items-center justify-center text-[10px] font-bold text-white">0.8</div>
+<div class="bg-red-200 rounded-md flex items-center justify-center text-[10px] font-bold text-white">0.4</div>
+<div class="bg-slate-200 dark:bg-slate-800 rounded-md flex items-center justify-center text-[10px] font-bold text-slate-500">0.1</div>
+<div class="bg-blue-200 rounded-md flex items-center justify-center text-[10px] font-bold text-white">-0.3</div>
+<div class="bg-blue-400 rounded-md flex items-center justify-center text-[10px] font-bold text-white">-0.7</div>
+<div class="bg-red-400 rounded-md"></div>
+<div class="bg-red-500 rounded-md"></div>
+<div class="bg-red-300 rounded-md"></div>
+<div class="bg-red-100 rounded-md"></div>
+<div class="bg-slate-200 dark:bg-slate-800 rounded-md"></div>
+<div class="bg-blue-100 rounded-md"></div>
+<div class="bg-red-200 rounded-md"></div>
+<div class="bg-red-300 rounded-md"></div>
+<div class="bg-red-500 rounded-md"></div>
+<div class="bg-red-400 rounded-md"></div>
+<div class="bg-red-200 rounded-md"></div>
+<div class="bg-slate-200 dark:bg-slate-800 rounded-md"></div>
+<div class="bg-slate-200 dark:bg-slate-800 rounded-md"></div>
+<div class="bg-red-100 rounded-md"></div>
+<div class="bg-red-400 rounded-md"></div>
+<div class="bg-red-500 rounded-md"></div>
+<div class="bg-red-300 rounded-md"></div>
+<div class="bg-red-100 rounded-md"></div>
+<div class="bg-blue-200 rounded-md"></div>
+<div class="bg-slate-200 dark:bg-slate-800 rounded-md"></div>
+<div class="bg-red-200 rounded-md"></div>
+<div class="bg-red-300 rounded-md"></div>
+<div class="bg-red-500 rounded-md"></div>
+<div class="bg-red-400 rounded-md"></div>
+<div class="bg-blue-400 rounded-md"></div>
+<div class="bg-blue-100 rounded-md"></div>
+<div class="bg-slate-200 dark:bg-slate-800 rounded-md"></div>
+<div class="bg-red-100 rounded-md"></div>
+<div class="bg-red-400 rounded-md"></div>
+<div class="bg-red-500 rounded-md"></div>
+</div>
+<!-- Legend -->
+<div class="mt-8 flex items-center gap-4">
+<span class="text-xs text-blue-400 font-bold">-1.0</span>
+<div class="h-2 w-48 rounded-full bg-gradient-to-r from-blue-500 via-slate-200 to-red-500"></div>
+<span class="text-xs text-red-400 font-bold">+1.0</span>
+</div>
+</div>
+</div>
+<!-- Bottom Control Panel -->
+<div class="p-6 bg-white dark:bg-background-dark/50 border-t border-slate-200 dark:border-slate-800">
+<div class="max-w-4xl mx-auto flex items-center justify-between gap-8">
+<div class="flex-1">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block">Target Column</label>
+<div class="flex items-center gap-3">
+<div class="relative flex-1">
+<select class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg py-2.5 px-4 text-sm font-medium appearance-none focus:ring-2 focus:ring-primary">
+<option selected="">house_price</option>
+<option>square_feet</option>
+<option>neighborhood</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+<div class="flex items-center gap-2 bg-primary/10 border border-primary/20 px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-lg">auto_awesome</span>
+<span class="text-xs font-bold text-primary">Classification Detected</span>
+</div>
+</div>
+</div>
+<div class="flex-shrink-0 pt-6">
+<button class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-primary/30 transition-all flex items-center gap-3">
+<span>Get Algorithm Recommendations</span>
+<span class="material-symbols-outlined">bolt</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Stats Panel -->
+<aside class="w-80 border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark/30 p-6 flex flex-col gap-6">
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-500">Selected: <span class="text-slate-900 dark:text-white">house_price</span></h3>
+<div class="space-y-4">
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50">
+<p class="text-xs text-slate-400 font-medium mb-1">Mean Value</p>
+<p class="text-2xl font-bold">$425,000</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50">
+<p class="text-xs text-slate-400 font-medium mb-1">Median</p>
+<p class="text-lg font-bold">$389,200</p>
+</div>
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50">
+<p class="text-xs text-slate-400 font-medium mb-1">Std Dev</p>
+<p class="text-lg font-bold">12.4k</p>
+</div>
+</div>
+</div>
+<div class="mt-4 flex-1">
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Frequency Distribution</h4>
+<div class="h-48 w-full bg-slate-50 dark:bg-slate-800/20 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 flex items-end justify-between p-4">
+<!-- Simple Histogram Mockup -->
+<div class="w-2 bg-primary/40 rounded-t h-[20%]"></div>
+<div class="w-2 bg-primary/40 rounded-t h-[35%]"></div>
+<div class="w-2 bg-primary/60 rounded-t h-[55%]"></div>
+<div class="w-2 bg-primary/80 rounded-t h-[85%]"></div>
+<div class="w-2 bg-primary rounded-t h-[100%]"></div>
+<div class="w-2 bg-primary rounded-t h-[95%]"></div>
+<div class="w-2 bg-primary/80 rounded-t h-[75%]"></div>
+<div class="w-2 bg-primary/60 rounded-t h-[50%]"></div>
+<div class="w-2 bg-primary/40 rounded-t h-[30%]"></div>
+<div class="w-2 bg-primary/30 rounded-t h-[15%]"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] text-slate-400 font-bold uppercase">
+<span>Low</span>
+<span>Value Range</span>
+<span>High</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-primary/5 border border-primary/20 mt-auto">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+<h5 class="text-sm font-bold text-primary">Data Insight</h5>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    This column shows high variance. Consider normalization or log transformation if used for Linear Regression models.
+                </p>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

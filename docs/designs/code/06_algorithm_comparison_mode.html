@@ -1,0 +1,298 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#6467f2",
+            "background-light": "#f6f6f8",
+            "background-dark": "#101122",
+          },
+          fontFamily: {
+            "display": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header / TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-primary/20 px-10 py-3 bg-background-light dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">ML Visualizer</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Datasets</a>
+<a class="text-primary text-sm font-semibold leading-normal" href="#">Algorithms</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Tutorials</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">History</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4">
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+<div class="text-slate-500 dark:text-slate-400 flex border-none bg-slate-200 dark:bg-primary/10 items-center justify-center pl-4 rounded-l-xl">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-200 dark:bg-primary/10 text-slate-900 dark:text-slate-100 focus:ring-0 h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 rounded-r-xl pl-2 text-sm font-normal" placeholder="Search algorithms..."/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-xl size-10 bg-slate-200 dark:bg-primary/10 text-slate-700 dark:text-slate-300 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="flex items-center justify-center rounded-xl size-10 bg-primary text-white hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex flex-col max-w-[1200px] mx-auto w-full px-6 py-8">
+<!-- Breadcrumbs & Title -->
+<div class="flex flex-col gap-2 mb-8">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium">
+<span>Dashboard</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary">Algorithm Comparison</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-tight">Algorithm Comparison Mode</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg">Side-by-side performance analysis for <span class="text-primary font-semibold">'Customer Churn Predictor'</span> dataset</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-primary/10 text-slate-700 dark:text-slate-300 text-sm font-bold flex items-center gap-2 border border-slate-300 dark:border-primary/20">
+<span class="material-symbols-outlined text-sm">download</span> Export Report
+              </button>
+<button class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">play_arrow</span> Re-run Test
+              </button>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<div class="mb-8">
+<div class="flex border-b border-slate-200 dark:border-primary/20 gap-8">
+<a class="flex items-center gap-2 border-b-2 border-primary text-primary pb-4 px-2" href="#">
+<span class="material-symbols-outlined text-sm">equalizer</span>
+<p class="text-sm font-bold">Metric Comparison</p>
+</a>
+<a class="flex items-center gap-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 pb-4 px-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+<p class="text-sm font-bold">Confusion Matrix</p>
+</a>
+<a class="flex items-center gap-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 pb-4 px-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">show_chart</span>
+<p class="text-sm font-bold">ROC Curve</p>
+</a>
+</div>
+</div>
+<!-- Comparison Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Column A -->
+<div class="lg:col-span-3 flex flex-col gap-4">
+<div class="rounded-xl p-6 bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 bg-primary/20 text-primary text-[10px] font-bold uppercase rounded-bl-lg">Algorithm A</div>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Classifier</p>
+<h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-4">Random Forest</h3>
+<div class="space-y-4">
+<div class="flex flex-col">
+<span class="text-slate-500 dark:text-slate-400 text-xs">Accuracy</span>
+<div class="flex items-end justify-between">
+<span class="text-2xl font-bold text-slate-900 dark:text-slate-100">88.4%</span>
+<span class="text-emerald-500 text-xs font-bold flex items-center mb-1"><span class="material-symbols-outlined text-xs">trending_up</span>+2.4%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mt-1">
+<div class="h-full bg-primary rounded-full" style="width: 88.4%"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div>
+<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Precision</span>
+<p class="text-lg font-bold">0.86</p>
+</div>
+<div>
+<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Recall</span>
+<p class="text-lg font-bold">0.82</p>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl p-6 bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/20">
+<h4 class="text-slate-900 dark:text-slate-100 text-sm font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">memory</span> Parameters
+              </h4>
+<ul class="text-xs space-y-2 text-slate-600 dark:text-slate-400">
+<li class="flex justify-between"><span>n_estimators</span><span class="text-slate-900 dark:text-slate-100 font-mono">100</span></li>
+<li class="flex justify-between"><span>max_depth</span><span class="text-slate-900 dark:text-slate-100 font-mono">None</span></li>
+<li class="flex justify-between"><span>min_samples</span><span class="text-slate-900 dark:text-slate-100 font-mono">2</span></li>
+</ul>
+</div>
+</div>
+<!-- Central Radar Chart -->
+<div class="lg:col-span-6 flex flex-col gap-6">
+<div class="rounded-xl p-8 bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/20 flex flex-col items-center justify-center relative min-h-[400px]">
+<h3 class="absolute top-6 left-8 text-slate-900 dark:text-slate-100 font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">hub</span> Performance Spider Chart
+              </h3>
+<!-- Simulated Radar Chart Visualization -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+<!-- Background Circles/Pentagons -->
+<div class="absolute inset-0 border border-slate-200 dark:border-primary/10 rounded-full"></div>
+<div class="absolute inset-8 border border-slate-200 dark:border-primary/10 rounded-full"></div>
+<div class="absolute inset-16 border border-slate-200 dark:border-primary/10 rounded-full"></div>
+<div class="absolute inset-24 border border-slate-200 dark:border-primary/10 rounded-full"></div>
+<!-- Cross Lines -->
+<div class="absolute h-full w-[1px] bg-slate-200 dark:bg-primary/10"></div>
+<div class="absolute w-full h-[1px] bg-slate-200 dark:bg-primary/10"></div>
+<div class="absolute h-full w-[1px] bg-slate-200 dark:bg-primary/10 rotate-45"></div>
+<div class="absolute h-full w-[1px] bg-slate-200 dark:bg-primary/10 -rotate-45"></div>
+<!-- Labels -->
+<span class="absolute -top-6 text-[10px] font-bold text-slate-500 uppercase">Accuracy</span>
+<span class="absolute -right-12 text-[10px] font-bold text-slate-500 uppercase">Precision</span>
+<span class="absolute -bottom-6 text-[10px] font-bold text-slate-500 uppercase">Recall</span>
+<span class="absolute -left-12 text-[10px] font-bold text-slate-500 uppercase">F1-Score</span>
+<span class="absolute top-10 right-[-60px] text-[10px] font-bold text-slate-500 uppercase">Training Speed</span>
+<span class="absolute top-10 left-[-60px] text-[10px] font-bold text-slate-500 uppercase">Interpretability</span>
+<!-- SVG Radar Shapes -->
+<svg class="absolute inset-0 w-full h-full drop-shadow-xl" viewbox="0 0 100 100">
+<!-- Algorithm A - Indigo -->
+<polygon class="fill-primary/40 stroke-primary stroke-[1.5]" points="50,15 80,40 75,75 50,85 25,75 20,40"></polygon>
+<!-- Algorithm B - Cyan -->
+<polygon class="fill-cyan-500/30 stroke-cyan-400 stroke-[1.5]" points="50,10 90,45 85,80 50,95 15,80 10,45"></polygon>
+</svg>
+</div>
+<!-- Legend -->
+<div class="mt-8 flex gap-6 text-sm">
+<div class="flex items-center gap-2">
+<div class="size-3 bg-primary rounded-sm"></div>
+<span class="text-slate-600 dark:text-slate-400 font-medium">Random Forest</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 bg-cyan-400 rounded-sm"></div>
+<span class="text-slate-600 dark:text-slate-400 font-medium">XGBoost</span>
+</div>
+</div>
+</div>
+<!-- Winner Card -->
+<div class="rounded-xl p-6 bg-gradient-to-r from-primary to-indigo-600 text-white shadow-xl shadow-primary/30 flex items-center gap-6">
+<div class="size-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-4xl text-yellow-300">workspace_premium</span>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold mb-1">XGBoost wins the match!</h3>
+<p class="text-white/80 text-sm leading-relaxed">Based on the 'Customer Churn' dataset characteristics, XGBoost achieved a higher F1-score and significantly better handling of class imbalance.</p>
+</div>
+<button class="bg-white text-primary px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap hover:bg-slate-100 transition-colors">
+                View Full Logs
+              </button>
+</div>
+</div>
+<!-- Column B -->
+<div class="lg:col-span-3 flex flex-col gap-4">
+<div class="rounded-xl p-6 bg-white dark:bg-cyan-500/5 border border-slate-200 dark:border-cyan-500/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 bg-cyan-500/20 text-cyan-500 text-[10px] font-bold uppercase rounded-bl-lg">Algorithm B</div>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Gradient Booster</p>
+<h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-4">XGBoost</h3>
+<div class="space-y-4">
+<div class="flex flex-col">
+<span class="text-slate-500 dark:text-slate-400 text-xs">Accuracy</span>
+<div class="flex items-end justify-between">
+<span class="text-2xl font-bold text-slate-900 dark:text-slate-100">92.1%</span>
+<span class="text-emerald-500 text-xs font-bold flex items-center mb-1"><span class="material-symbols-outlined text-xs">trending_up</span>+5.1%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mt-1">
+<div class="h-full bg-cyan-500 rounded-full" style="width: 92.1%"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div>
+<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Precision</span>
+<p class="text-lg font-bold">0.93</p>
+</div>
+<div>
+<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Recall</span>
+<p class="text-lg font-bold">0.89</p>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl p-6 bg-white dark:bg-cyan-500/5 border border-slate-200 dark:border-cyan-500/20">
+<h4 class="text-slate-900 dark:text-slate-100 text-sm font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-cyan-500 text-sm">settings_input_component</span> Parameters
+              </h4>
+<ul class="text-xs space-y-2 text-slate-600 dark:text-slate-400">
+<li class="flex justify-between"><span>learning_rate</span><span class="text-slate-900 dark:text-slate-100 font-mono">0.1</span></li>
+<li class="flex justify-between"><span>max_depth</span><span class="text-slate-900 dark:text-slate-100 font-mono">6</span></li>
+<li class="flex justify-between"><span>objective</span><span class="text-slate-900 dark:text-slate-100 font-mono">binary</span></li>
+</ul>
+</div>
+<div class="rounded-xl p-6 bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50">
+<p class="text-slate-500 dark:text-slate-400 text-xs mb-3 italic">"XGBoost excels in handling the high cardinality features present in this dataset."</p>
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-300 dark:bg-slate-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs">auto_awesome</span>
+</div>
+<span class="text-[10px] font-bold uppercase text-slate-500">Auto-Insights</span>
+</div>
+</div>
+</div>
+</div>
+<!-- History/Timeline Section -->
+<div class="mt-12">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-6">Recent Comparisons</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 rounded-xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 flex items-center gap-4">
+<div class="size-10 rounded-lg bg-emerald-500/20 text-emerald-500 flex items-center justify-center">
+<span class="material-symbols-outlined">data_object</span>
+</div>
+<div>
+<p class="text-sm font-bold">Image Recognition</p>
+<p class="text-xs text-slate-500">CNN vs ResNet • 2d ago</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 flex items-center gap-4 opacity-70">
+<div class="size-10 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="text-sm font-bold">Spam Detection</p>
+<p class="text-xs text-slate-500">Naive Bayes vs SVM • 5d ago</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 flex items-center gap-4 opacity-70">
+<div class="size-10 rounded-lg bg-amber-500/20 text-amber-500 flex items-center justify-center">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<div>
+<p class="text-sm font-bold">Market Basket</p>
+<p class="text-xs text-slate-500">Apriori vs FP-Growth • 1w ago</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-primary/20 p-8 text-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm">
+          ML Visualizer - Educational Platform for Machine Learning Exploration. © 2024
+        </p>
+</footer>
+</div>
+</div>
+</body></html>

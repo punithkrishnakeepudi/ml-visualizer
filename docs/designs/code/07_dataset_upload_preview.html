@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6467f2",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101122",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Dataset Upload &amp; Preview - ML Visualizer</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="border-b border-slate-200 dark:border-primary/20 bg-background-light dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-8">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">query_stats</span>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">ML Visualizer</h1>
+</div>
+<div class="hidden md:flex items-center bg-slate-200/50 dark:bg-primary/10 rounded-lg px-3 py-1.5 border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-slate-500 dark:text-primary/60 text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-slate-500" placeholder="Search datasets..." type="text"/>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Datasets</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Models</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Tutorials</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-primary" href="#">Docs</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8">
+<!-- Header Section -->
+<div class="mb-8">
+<h2 class="text-4xl font-black tracking-tight mb-2">Dataset Upload &amp; Preview</h2>
+<p class="text-slate-600 dark:text-slate-400">Import your raw data and prepare it for model training and visualization.</p>
+</div>
+<!-- Success Banner -->
+<div class="mb-8 flex flex-col md:flex-row items-center justify-between p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 gap-4">
+<div class="flex items-center gap-4">
+<div class="bg-emerald-500 rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">check</span>
+</div>
+<div>
+<p class="font-bold text-emerald-600 dark:text-emerald-400">Dataset Upload Successful</p>
+<p class="text-sm text-slate-600 dark:text-slate-400">Your file <span class="font-mono text-primary">'california_housing_v2.csv'</span> has been processed successfully.</p>
+</div>
+</div>
+<div class="flex gap-6 items-center">
+<div class="text-center">
+<p class="text-xs uppercase tracking-widest text-slate-500">Rows</p>
+<p class="text-lg font-bold">1,500</p>
+</div>
+<div class="h-8 w-px bg-slate-300 dark:bg-primary/20"></div>
+<div class="text-center">
+<p class="text-xs uppercase tracking-widest text-slate-500">Columns</p>
+<p class="text-lg font-bold">12</p>
+</div>
+<div class="h-8 w-px bg-slate-300 dark:bg-primary/20"></div>
+<div class="text-center">
+<p class="text-xs uppercase tracking-widest text-slate-500">Size</p>
+<p class="text-lg font-bold">2.4 MB</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Upload & Samples -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Drop Zone -->
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-indigo-500 rounded-xl blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative flex flex-col items-center justify-center border-2 border-dashed border-primary/40 dark:border-primary/30 rounded-xl bg-white dark:bg-background-dark p-12 transition-all hover:border-primary">
+<span class="material-symbols-outlined text-6xl text-primary mb-4">cloud_upload</span>
+<h3 class="text-xl font-bold mb-2">Drop your CSV, Excel, or JSON file here</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Maximum file size: 50MB</p>
+<button class="bg-primary hover:bg-primary/90 text-white font-bold py-2.5 px-8 rounded-lg shadow-lg shadow-primary/20 transition-all">
+                            Browse Files
+                        </button>
+</div>
+</div>
+<!-- Sample Datasets -->
+<div>
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">data_exploration</span>
+                        Or start with a sample dataset
+                    </h3>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-primary/20 bg-white dark:bg-primary/5 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">filter_vintage</span>
+                            Iris Flowers
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-primary/20 bg-white dark:bg-primary/5 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">home</span>
+                            Housing Prices
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-primary/20 bg-white dark:bg-primary/5 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">directions_car</span>
+                            Auto MPG
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-primary/20 bg-white dark:bg-primary/5 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">shopping_cart</span>
+                            E-commerce
+                        </button>
+</div>
+</div>
+<!-- Data Preview Table -->
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-xl overflow-hidden shadow-xl">
+<div class="p-4 border-b border-slate-200 dark:border-primary/20 flex justify-between items-center bg-slate-50 dark:bg-primary/5">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">table_view</span>
+                            Data Preview (First 5 Rows)
+                        </h3>
+<div class="flex gap-2">
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-blue-500"></span>
+<span class="text-xs text-slate-500">Numerical</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-purple-500"></span>
+<span class="text-xs text-slate-500">Categorical</span>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm border-collapse">
+<thead>
+<tr class="bg-slate-100 dark:bg-background-dark/80">
+<th class="p-4 border-b border-r border-slate-200 dark:border-primary/20 text-blue-500">ID</th>
+<th class="p-4 border-b border-r border-slate-200 dark:border-primary/20 text-blue-500">Longitude</th>
+<th class="p-4 border-b border-r border-slate-200 dark:border-primary/20 text-blue-500">Latitude</th>
+<th class="p-4 border-b border-r border-slate-200 dark:border-primary/20 text-purple-500">Ocean Proximity</th>
+<th class="p-4 border-b border-r border-slate-200 dark:border-primary/20 text-blue-500">Median Income</th>
+<th class="p-4 border-b border-slate-200 dark:border-primary/20 text-blue-500">Price ($)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-primary/10">
+<tr class="hover:bg-primary/5">
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">1</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">-122.23</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">37.88</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">
+<span class="px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 text-xs font-medium">NEAR BAY</span>
+</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">8.3252</td>
+<td class="p-4">452,600</td>
+</tr>
+<tr class="hover:bg-primary/5">
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">2</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">-122.22</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">37.86</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">
+<span class="px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 text-xs font-medium">NEAR BAY</span>
+</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">8.3014</td>
+<td class="p-4">358,500</td>
+</tr>
+<tr class="hover:bg-primary/5">
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">3</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">-122.24</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">37.85</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">
+<span class="px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 text-xs font-medium">NEAR BAY</span>
+</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">7.2574</td>
+<td class="p-4">352,100</td>
+</tr>
+<tr class="hover:bg-primary/5">
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">4</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">-122.25</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">37.85</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">
+<span class="px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 text-xs font-medium">NEAR BAY</span>
+</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">5.6431</td>
+<td class="p-4">341,300</td>
+</tr>
+<tr class="hover:bg-primary/5">
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">5</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">-122.25</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">37.85</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">
+<span class="px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 text-xs font-medium">INLAND</span>
+</td>
+<td class="p-4 border-r border-slate-200 dark:border-primary/10">3.8462</td>
+<td class="p-4">342,200</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-primary/5 text-center">
+<button class="text-sm text-primary font-bold hover:underline">View full dataset in spreadsheet mode</button>
+</div>
+</div>
+<!-- Main CTA -->
+<div class="flex justify-end pt-4 pb-12">
+<button class="flex items-center gap-3 bg-primary hover:bg-primary/90 text-white font-black py-4 px-10 rounded-xl shadow-2xl shadow-primary/40 transform transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                        Analyze &amp; Continue
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right Column: Instructions -->
+<div class="space-y-6">
+<div class="p-6 rounded-xl border border-slate-200 dark:border-primary/20 bg-white dark:bg-primary/5 sticky top-24">
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">help</span>
+                        What happens next?
+                    </h3>
+<div class="space-y-8">
+<div class="flex gap-4">
+<div class="flex-shrink-0 size-8 rounded-lg bg-primary/20 flex items-center justify-center font-bold text-primary">1</div>
+<div>
+<h4 class="font-bold mb-1">Feature Engineering</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">We'll automatically suggest normalization and encoding strategies for your columns.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 size-8 rounded-lg bg-primary/20 flex items-center justify-center font-bold text-primary">2</div>
+<div>
+<h4 class="font-bold mb-1">Visualization Analysis</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Interactive charts will show distributions, correlations, and potential outliers in your data.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 size-8 rounded-lg bg-primary/20 flex items-center justify-center font-bold text-primary">3</div>
+<div>
+<h4 class="font-bold mb-1">Model Selection</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Choose from Linear Regression, SVM, or Random Forest models to train on your dataset.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 size-8 rounded-lg bg-primary/20 flex items-center justify-center font-bold text-primary">4</div>
+<div>
+<h4 class="font-bold mb-1">Real-time Visualization</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Watch the decision boundaries evolve as the model learns from your input data.</p>
+</div>
+</div>
+</div>
+<div class="mt-10 p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+<div class="flex items-center gap-2 text-amber-500 mb-1">
+<span class="material-symbols-outlined text-sm">lightbulb</span>
+<span class="text-xs font-bold uppercase tracking-wider">Pro Tip</span>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-300">Clean your data by removing null values for better model accuracy.</p>
+</div>
+</div>
+<!-- Quick Support -->
+<div class="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/10">
+<h4 class="font-bold mb-2">Need help formatting?</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Check our documentation for CSV formatting guidelines.</p>
+<a class="text-primary text-sm font-bold flex items-center gap-1 hover:underline" href="#">
+                        View Formatting Guide
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="max-w-7xl mx-auto px-4 py-8 border-t border-slate-200 dark:border-primary/10 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
+<div class="flex items-center gap-4">
+<span>© 2024 ML Visualizer Open Source</span>
+<span class="size-1 bg-slate-500 rounded-full"></span>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<span class="size-1 bg-slate-500 rounded-full"></span>
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">code</span>
+                Github
+            </a>
+<a class="flex items-center gap-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">forum</span>
+                Community
+            </a>
+</div>
+</footer>
+</body></html>
