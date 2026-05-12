@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import useAppStore from '../../store/useAppStore';
 import PlaybackControls from './PlaybackControls';
 import KMeansViz from './algorithms/KMeansViz';
+import LinearRegressionViz from './algorithms/LinearRegressionViz';
+import LogisticRegressionViz from './algorithms/LogisticRegressionViz';
+import KNNViz from './algorithms/KNNViz';
+import DecisionTreeViz from './algorithms/DecisionTreeViz';
 
 const AlgorithmVisualizer = () => {
     const selectedAlgorithm = useAppStore(state => state.selectedAlgorithm);
@@ -12,6 +16,7 @@ const AlgorithmVisualizer = () => {
     const [steps, setSteps] = useState([]);
     const [currentStepIdx, setCurrentStepIdx] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [showCode, setShowCode] = useState(false);
 
     useEffect(() => {
         const startProcessing = async () => {
@@ -88,14 +93,22 @@ const AlgorithmVisualizer = () => {
                         <h2 className="text-xl font-bold text-surface-50">{selectedAlgorithm.name}</h2>
                     </div>
                 </div>
-                <PlaybackControls
-                    isPlaying={isPlaying}
-                    onTogglePlay={() => setIsPlaying(!isPlaying)}
-                    onNext={() => setCurrentStepIdx(prev => Math.min(prev + 1, steps.length - 1))}
-                    onPrev={() => setCurrentStepIdx(prev => Math.max(prev - 1, 0))}
-                    currentStep={currentStepIdx + 1}
-                    totalSteps={steps.length}
-                />
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => setShowCode(!showCode)}
+                        className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${showCode ? 'bg-primary-600 text-white' : 'glass text-surface-400 hover:bg-white/5'}`}
+                    >
+                        {showCode ? 'View Steps' : 'View Code'}
+                    </button>
+                    <PlaybackControls
+                        isPlaying={isPlaying}
+                        onTogglePlay={() => setIsPlaying(!isPlaying)}
+                        onNext={() => setCurrentStepIdx(prev => Math.min(prev + 1, steps.length - 1))}
+                        onPrev={() => setCurrentStepIdx(prev => Math.max(prev - 1, 0))}
+                        currentStep={currentStepIdx + 1}
+                        totalSteps={steps.length}
+                    />
+                </div>
             </div>
 
             <div className="flex-1 flex overflow-hidden">
@@ -109,6 +122,22 @@ const AlgorithmVisualizer = () => {
 
                     {selectedAlgorithm.id === 'kmeans' && currentStep && (
                         <KMeansViz step={currentStep} />
+                    )}
+
+                    {selectedAlgorithm.id === 'linear_regression' && currentStep && (
+                        <LinearRegressionViz step={currentStep} />
+                    )}
+
+                    {selectedAlgorithm.id === 'logistic_regression' && currentStep && (
+                        <LogisticRegressionViz step={currentStep} />
+                    )}
+
+                    {selectedAlgorithm.id === 'knn' && currentStep && (
+                        <KNNViz step={currentStep} />
+                    )}
+
+                    {selectedAlgorithm.id === 'decision_tree' && currentStep && (
+                        <DecisionTreeViz step={currentStep} />
                     )}
 
                     {!currentStep && (
@@ -125,9 +154,30 @@ const AlgorithmVisualizer = () => {
                     )}
                 </div>
 
-                {/* Right Panel: Explanations */}
+                {/* Right Panel: Explanations or Code */}
                 <div className="w-[450px] border-l border-surface-800 bg-[#0a0f1e] p-10 overflow-y-auto">
-                    {currentStep ? (
+                    {showCode ? (
+                        <div className="space-y-8 animate-in fade-in slide-in-from-right-10 duration-700">
+                            <div>
+                                <h3 className="text-2xl font-bold text-white mb-6 leading-tight">Implementation</h3>
+                                <p className="text-surface-400 text-base mb-6">
+                                    How to implement this algorithm using <span className="text-primary-400 font-semibold">Scikit-Learn</span>, the industry standard ML library.
+                                </p>
+                            </div>
+                            <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-indigo-500/20 rounded-2xl blur opacity-25"></div>
+                                <pre className="relative p-6 glass rounded-2xl border border-surface-800 bg-surface-950/80 text-primary-300 font-mono text-sm overflow-x-auto">
+                                    {selectedAlgorithm.code_example}
+                                </pre>
+                            </div>
+                            <div className="p-6 bg-primary-500/5 border border-primary-500/10 rounded-2xl">
+                                <h4 className="text-white font-bold mb-2 text-sm uppercase tracking-wider">Pro Tip</h4>
+                                <p className="text-surface-400 text-sm italic">
+                                    "In production, always remember to scale your features before fitting {selectedAlgorithm.name} to ensure optimal performance."
+                                </p>
+                            </div>
+                        </div>
+                    ) : currentStep ? (
                         <div className="space-y-10 animate-in fade-in slide-in-from-right-10 duration-700">
                             <div>
                                 <h3 className="text-2xl font-bold text-white mb-6 leading-tight">{currentStep.title}</h3>
